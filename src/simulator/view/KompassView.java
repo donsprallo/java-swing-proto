@@ -18,6 +18,8 @@ public abstract class KompassView implements Observer {
 		return controller;
 	}
 	
+	public abstract void hide();
+	public abstract void show();
 	public abstract void showKurskorrektur(int kurskorrektur);
 	
 	public KompassView(KompassModel model, KompassControllerInterface controller) {

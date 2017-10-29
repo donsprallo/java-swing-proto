@@ -27,6 +27,20 @@ public class KompassController implements KompassControllerInterface {
 			model.setSteuerkurs(model.getSteuerkurs() + 5);
 			informiereUeberKurskorrektur(5);
 		}
+		
+		if (e.getActionCommand().equals("Next View")) {
+			for (KompassView view : views) {
+				view.hide();
+			}
+			views.get(2).show();
+		}
+		
+		if (e.getActionCommand().equals("Back View")) {
+			for (KompassView view : views) {
+				view.hide();
+			}
+			views.get(1).show();
+		}
 	}
 
 	@Override
@@ -42,5 +56,6 @@ public class KompassController implements KompassControllerInterface {
 	public void initialisiereModel() {
 		model.setKompasskurs(0);
 		model.setSteuerkurs(0);
+		views.get(1).show();
 	}
 }

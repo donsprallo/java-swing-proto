@@ -18,6 +18,14 @@ public class CommandlineView extends KompassView {
 		System.out.println("Aktueller Kurs: " + getModel().getKompasskurs());
 		System.out.println("---");
 	}
+	
+	@Override
+	public void hide() {
+	}
+	
+	@Override
+	public void show() {
+	}
 
 	@Override
 	public void showKurskorrektur(int kurskorrektur) {

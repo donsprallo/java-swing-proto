@@ -11,35 +11,40 @@ import java.util.Observable;
 import simulator.controller.KompassControllerInterface;
 import simulator.model.KompassModel;
 
-public class SteuerkursView extends KompassView {
-	
-	Label label;
+public class SteuerkursKompassView extends KompassView {
+
+	Label lblSteuerkurs;
+	Label lblKompasskurs;
 	Frame frame;
 	
-	public SteuerkursView(KompassModel model, KompassControllerInterface controller) {
+	public SteuerkursKompassView(KompassModel model, KompassControllerInterface controller) {
 		super(model, controller);
 		
 		frame = new Frame("Kompass GUI");
-		frame.setLayout(new GridLayout(4, 1));
+		frame.setLayout(new GridLayout(5, 1));
 		
 		Button btnMinusFuenfGrad = new Button("-5 Grad");
 		btnMinusFuenfGrad.addActionListener(controller);
 		btnMinusFuenfGrad.setActionCommand("-5");
 		frame.add("North", btnMinusFuenfGrad);
 		
-		label = new Label();
-		label.setAlignment(Label.CENTER);
-		frame.add(label);
+		lblSteuerkurs = new Label();
+		lblSteuerkurs.setAlignment(Label.CENTER);
+		frame.add(lblSteuerkurs);
+		
+		lblKompasskurs = new Label();
+		lblKompasskurs.setAlignment(Label.CENTER);
+		frame.add(lblKompasskurs);
 		
 		Button btnPlusFuenfGrad = new Button("+5 Grad");
 		btnPlusFuenfGrad.addActionListener(controller);
 		btnPlusFuenfGrad.setActionCommand("+5");
 		frame.add(btnPlusFuenfGrad);
 		
-		Button btnNextView = new Button("Next View");
-		btnNextView.addActionListener(controller);
-		btnNextView.setActionCommand("Next View");
-		frame.add(btnNextView);
+		Button btnBackView = new Button("Back View");
+		btnBackView.addActionListener(controller);
+		btnBackView.setActionCommand("Back View");
+		frame.add(btnBackView);
 		
 		frame.addWindowListener(new CloseListener());
 		frame.setSize(200, 200);
@@ -49,7 +54,8 @@ public class SteuerkursView extends KompassView {
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		label.setText("Steuerkurs: " + getModel().getSteuerkurs());
+		lblSteuerkurs.setText("Steuerkurs: " + getModel().getSteuerkurs());
+		lblKompasskurs.setText("Kompasskurs: " + getModel().getKompasskurs());
 	}
 
 	@Override
@@ -73,4 +79,5 @@ public class SteuerkursView extends KompassView {
 			System.exit(0);
 		}
 	}
+
 }

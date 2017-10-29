@@ -18,10 +18,18 @@ import engine.CoreEvent;
 import simulator.controller.KompassController;
 import simulator.model.KompassModel;
 import simulator.view.CommandlineView;
+import simulator.view.KompassView;
+import simulator.view.SteuerkursKompassView;
 import simulator.view.SteuerkursView;
 
 public class SimulatorCore extends Core {
 
+	KompassModel model;
+	KompassController controller;
+	KompassView view1;
+	KompassView view2;
+	KompassView view3;
+	
 	@Override
 	protected CoreEvent pollEvent() {
 		// Momentan werden keine Events abgefragt
@@ -30,11 +38,12 @@ public class SimulatorCore extends Core {
 
 	@Override
 	protected boolean onInit() {
-		// TODO Verknüpfen der MVC-Komponenten
-		KompassModel model = new KompassModel();
-		KompassController controller = new KompassController(model);
-		CommandlineView view1 = new CommandlineView(model, controller);
-		SteuerkursView view2 = new SteuerkursView(model, controller);
+		// Verknüpfen der MVC-Komponenten
+		model = new KompassModel();
+		controller = new KompassController(model);
+		view1 = new CommandlineView(model, controller);
+		view2 = new SteuerkursView(model, controller);
+		view3 = new SteuerkursKompassView(model, controller);
 		
 		controller.initialisiereModel();
 		model.setKompasskurs(175);
@@ -51,11 +60,13 @@ public class SimulatorCore extends Core {
 	@Override
 	protected void onUpdate() {
 		// TODO Daten hier verändern
+		model.setKompasskurs(model.getKompasskurs() + 1);
 	}
 
 	@Override
 	protected void onRender() {
 		// TODO Views hier verändern
+		
 	}
 
 	@Override

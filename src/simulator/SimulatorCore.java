@@ -15,6 +15,10 @@ import javax.swing.SwingUtilities;
 
 import engine.Core;
 import engine.CoreEvent;
+import simulator.controller.KompassController;
+import simulator.model.KompassModel;
+import simulator.view.CommandlineView;
+import simulator.view.SteuerkursView;
 
 public class SimulatorCore extends Core {
 
@@ -26,8 +30,16 @@ public class SimulatorCore extends Core {
 
 	@Override
 	protected boolean onInit() {
-		// TODO Verknüpfen der MVC-Komponenten
-		SwingUtilities.invokeLater(() -> starteMich());
+		// TODO VerknÃ¼pfen der MVC-Komponenten
+		KompassModel model = new KompassModel();
+		KompassController controller = new KompassController(model);
+		CommandlineView view1 = new CommandlineView(model, controller);
+		SteuerkursView view2 = new SteuerkursView(model, controller);
+		
+		controller.initialisiereModel();
+		model.setKompasskurs(175);
+		
+		//SwingUtilities.invokeLater(() -> starteMich());
 		return true;
 	}
 
@@ -38,12 +50,12 @@ public class SimulatorCore extends Core {
 
 	@Override
 	protected void onUpdate() {
-		// TODO Daten hier verändern
+		// TODO Daten hier verÃ¤ndern
 	}
 
 	@Override
 	protected void onRender() {
-		// TODO Views hier verändern
+		// TODO Views hier verÃ¤ndern
 	}
 
 	@Override
@@ -59,7 +71,7 @@ public class SimulatorCore extends Core {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(Box.createVerticalBox());
 		
-		// Dehnbaren Zwischenraum hinzufügen
+		// Dehnbaren Zwischenraum hinzufÃ¼gen
 		frame.add(Box.createGlue());
 		
 		// Label erzeugen
@@ -67,18 +79,18 @@ public class SimulatorCore extends Core {
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		frame.add(label);
 		
-		// Zwischenraum hinzufügen
+		// Zwischenraum hinzufÃ¼gen
 		frame.add(Box.createVerticalStrut(50));
 		
 		// Button erzeugen
 		JButton button = new JButton("Knopf");
 		button.setAlignmentX(Component.CENTER_ALIGNMENT);
 		button.addActionListener(
-				(e) -> { System.out.println("Knopf gedrückt"); }
+				(e) -> { System.out.println("Knopf gedrï¿½ckt"); }
 				);
 		frame.add(button);
 		
-		// Dehnbaren Zwischenraum hinzufügen
+		// Dehnbaren Zwischenraum hinzufÃ¼gen
 		frame.add(Box.createGlue());
 		
 		// Horizontale Box erzeugen
@@ -94,7 +106,7 @@ public class SimulatorCore extends Core {
 		}
 		frame.add(box);
 		
-		// Menü erzeugen
+		// MenÃ¼ erzeugen
 		JMenuBar bar = new JMenuBar();
 		{
 			JMenu menu1 = new JMenu("File");

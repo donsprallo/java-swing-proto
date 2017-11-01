@@ -2,10 +2,11 @@ package simulator.view;
 
 import java.util.Observable;
 
+import simulator.ViewBase;
 import simulator.controller.KompassControllerInterface;
 import simulator.model.KompassModel;
 
-public class CommandlineView extends KompassView {
+public class CommandlineView extends ViewBase {
 	
 	public CommandlineView(KompassModel model, KompassControllerInterface controller) {
 		super(model, controller);
@@ -17,14 +18,6 @@ public class CommandlineView extends KompassView {
 		System.out.println("Steuerkurs: " + getModel().getSteuerkurs());
 		System.out.println("Aktueller Kurs: " + getModel().getKompasskurs());
 		System.out.println("---");
-	}
-	
-	@Override
-	public void hide() {
-	}
-	
-	@Override
-	public void show() {
 	}
 
 	@Override

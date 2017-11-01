@@ -3,17 +3,26 @@ package simulator.controller;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import simulator.ViewBase;
+import simulator.ViewUIBase;
+import simulator.ViewInterface;
 import simulator.model.KompassModel;
-import simulator.view.KompassView;
 
 public class KompassController implements KompassControllerInterface {
 
 	private KompassModel model;
-	private ArrayList<KompassView> views;
+	private ArrayList<ViewInterface> views;
+	
+	private JFrame frame;
+	
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
 	
 	public KompassController(KompassModel model) {
 		this.model = model;
-		views = new ArrayList<KompassView>();
+		views = new ArrayList<ViewInterface>();
 	}
 	
 	@Override
@@ -29,33 +38,40 @@ public class KompassController implements KompassControllerInterface {
 		}
 		
 		if (e.getActionCommand().equals("Next View")) {
-			for (KompassView view : views) {
-				view.hide();
-			}
-			views.get(2).show();
+			showView(2);
 		}
 		
 		if (e.getActionCommand().equals("Back View")) {
-			for (KompassView view : views) {
-				view.hide();
-			}
-			views.get(1).show();
+			showView(1);
 		}
 	}
 
-	@Override
-	public void addView(KompassView view) {
-		views.add(view);
-	}
-
 	private void informiereUeberKurskorrektur(int kurskorrektur) {
-		for (KompassView view : views)
-			view.showKurskorrektur(kurskorrektur);
+		for (ViewInterface view : views)
+			if (view instanceof ViewBase)
+				((ViewBase)view).showKurskorrektur(kurskorrektur);
+	}
+	
+	private void showView(int index) {
+		
+		for(ViewInterface view : views) {
+			if (view instanceof ViewUIBase)
+				frame.getContentPane().remove((ViewUIBase)view);
+		}
+		
+		if (views.get(index) instanceof ViewUIBase)
+			frame.getContentPane().add((ViewUIBase)views.get(index));
+		
+		frame.getContentPane().validate();
 	}
 	
 	public void initialisiereModel() {
 		model.setKompasskurs(0);
 		model.setSteuerkurs(0);
-		views.get(1).show();
+	}
+
+	@Override
+	public void addView(ViewInterface view) {
+		views.add(view);
 	}
 }

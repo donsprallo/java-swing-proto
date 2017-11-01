@@ -2,8 +2,8 @@ package simulator.controller;
 
 import java.awt.event.ActionListener;
 
-import simulator.view.KompassView;
+import simulator.ViewInterface;
 
 public interface KompassControllerInterface extends ActionListener {
-	public void addView(KompassView view);
+	public void addView(ViewInterface view);
 }

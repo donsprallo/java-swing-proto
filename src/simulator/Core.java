@@ -28,8 +28,8 @@ extends CoreBase {
 	KompassModel model;
 	KompassController controller;
 	ViewInterface view1;
-	ViewUIBase view2;
-	ViewUIBase view3;
+	ViewUIComponentBase view2;
+	ViewUIComponentBase view3;
 	
 	@Override
 	protected CoreEvent pollEvent() {

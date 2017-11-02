@@ -1,21 +1,31 @@
+/**
+ * 
+ */
 package simulator;
 
+import javax.swing.JComponent;
 import simulator.controller.KompassControllerInterface;
 import simulator.model.KompassModel;
 
 /**
- * Stellt eine Minimalversion einer View dar.
+ * Stellt eine Minimalversion einer grafischen View dar.
  * <p>
- * Die ViewBase kann z.B. für eine kommandozeilenbasierte Version als Basis verwendet werden.
+ * Die {@link simulator.ViewUIComponentBase ViewUIComponentBase} kann als Basis für eine
+ * Swing-basierte GUI-Komponente verwendet werden.
  * Das {@link simulator.ViewInterface ViewInterface} wird implementiert und stellt damit Methoden
- * für den Zugriff auf das Model und den Controller zur Verfügung.
+ * für den Zugriff auf das Model und den Controller zur Verfügung. Es wird von der
+ * {@link javax.swing.JComponent JComponent}-Klasse geerbt. Damit kann die
+ * {@link simulator.ViewUIComponentBase ViewUIComponentBase}-Klasse einem
+ * {@link javax.swing.JFrame JFrame} zur Anzeige hinzugefügt werden.
  * 
  * @author Nico Hanisch
  * @version 1.0
  */
-public abstract class ViewBase
+@SuppressWarnings("serial")
+public abstract class ViewUIComponentBase
+extends JComponent
 implements ViewInterface {
-	
+
 	private KompassModel model;
 	private KompassControllerInterface controller;
 	
@@ -31,7 +41,7 @@ implements ViewInterface {
 	 * @param model Das Model, auf dem sich zur Beobachtung registriert werden soll.
 	 * @param controller Der Controller zur Steuerung der Benutzeraktionen.
 	 */
-	public ViewBase(KompassModel model, KompassControllerInterface controller) {
+	public ViewUIComponentBase(KompassModel model, KompassControllerInterface controller) {
 		this.model = model;
 		this.controller = controller;
 		
@@ -46,10 +56,4 @@ implements ViewInterface {
 	public KompassControllerInterface getController() {
 		return controller;
 	}
-	
-	/**
-	 * Diese Methode ist nur als Beispiel gedacht. Sie sollte noch aus der ViewBase-Klasse verschwinden.
-	 * @param kurskorrektur
-	 */
-	public abstract void showKurskorrektur(int kurskorrektur);
 }

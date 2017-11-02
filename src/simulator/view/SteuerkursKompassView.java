@@ -5,12 +5,12 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.util.Observable;
 
-import simulator.ViewUIBase;
+import simulator.ViewUIComponentBase;
 import simulator.controller.KompassControllerInterface;
 import simulator.model.KompassModel;
 
 @SuppressWarnings("serial")
-public class SteuerkursKompassView extends ViewUIBase {
+public class SteuerkursKompassView extends ViewUIComponentBase {
 
 	Label lblSteuerkurs;
 	Label lblKompasskurs;

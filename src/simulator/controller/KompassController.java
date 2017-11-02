@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import simulator.ViewBase;
-import simulator.ViewUIBase;
+import simulator.ViewUIComponentBase;
 import simulator.ViewInterface;
 import simulator.model.KompassModel;
 
@@ -55,12 +55,12 @@ public class KompassController implements KompassControllerInterface {
 	private void showView(int index) {
 		
 		for(ViewInterface view : views) {
-			if (view instanceof ViewUIBase)
-				frame.getContentPane().remove((ViewUIBase)view);
+			if (view instanceof ViewUIComponentBase)
+				frame.getContentPane().remove((ViewUIComponentBase)view);
 		}
 		
-		if (views.get(index) instanceof ViewUIBase)
-			frame.getContentPane().add((ViewUIBase)views.get(index));
+		if (views.get(index) instanceof ViewUIComponentBase)
+			frame.getContentPane().add((ViewUIComponentBase)views.get(index));
 		
 		frame.getContentPane().validate();
 	}

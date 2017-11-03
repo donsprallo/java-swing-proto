@@ -2,7 +2,7 @@ package simulator;
 
 import java.util.Observer;
 
-import simulator.controller.KompassControllerInterface;
+import simulator.controller.ControllerInterface;
 import simulator.model.KompassModel;
 
 /**
@@ -25,7 +25,7 @@ public interface ViewInterface extends Observer {
 	/**
 	 * Gibt den Controller der View zurück.
 	 * 
-	 * @return Ein {@link simulator.controller.KompassControllerInterface KompassControllerInterface}-Objekt.
+	 * @return Ein {@link simulator.controller.ControllerInterface KompassControllerInterface}-Objekt.
 	 */
-	KompassControllerInterface getController();
+	ControllerInterface getController();
 }

@@ -3,17 +3,35 @@ package simulator.view;
 import java.util.Observable;
 
 import simulator.ViewBase;
-import simulator.controller.KompassControllerInterface;
+import simulator.controller.ControllerInterface;
 import simulator.model.KompassModel;
 
+/**
+ * Eine Beispiel-Klasse für eine View ohne GUI.
+ * <p>
+ * Erbt von {@link simulator.view.ViewBase} und überschreibt die Methoden
+ * {@code update(Observable, Object)} und {@code showKurskorrektur(int)}. Am wichtigsten ist die
+ * update-Methode, in der die View über Datenänderungen am Model informiert wird. Die Daten selbst
+ * werden über Getter-Methoden vom Model abgefragt.
+ * 
+ * @author Nico Hanisch
+ * @version 1.0
+ */
 public class CommandlineView extends ViewBase {
 	
-	public CommandlineView(KompassModel model, KompassControllerInterface controller) {
+	/**
+	 * Der Konstruktor leitet die übergebenen Argumente an die Basis-Klasse weiter.
+	 * 
+	 * @param model Das {@link simulator.model.KompassModel}-Objekt, auf dem sich die View registriert.
+	 * @param controller Das zu verbindende {@link simulator.controller.ControllerInterface}-Objekt.
+	 */
+	public CommandlineView(KompassModel model, ControllerInterface controller) {
 		super(model, controller);
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
+		// erzeugt auf der Konsole eine Ausgabe der Daten vom Model
 		System.out.println("---");
 		System.out.println("Steuerkurs: " + getModel().getSteuerkurs());
 		System.out.println("Aktueller Kurs: " + getModel().getKompasskurs());

@@ -1,6 +1,6 @@
 package simulator;
 
-import simulator.controller.KompassControllerInterface;
+import simulator.controller.ControllerInterface;
 import simulator.model.KompassModel;
 
 /**
@@ -17,7 +17,7 @@ public abstract class ViewBase
 implements ViewInterface {
 	
 	private KompassModel model;
-	private KompassControllerInterface controller;
+	private ControllerInterface controller;
 	
 	/**
 	 * Der Konstruktor für die Klasse.
@@ -27,11 +27,16 @@ implements ViewInterface {
 	 * reagiert werden soll. Die View selbst weiß nichts darüber, wie sie sich zu verhalten hat. Sie
 	 * ist nur für die Anzeige der Daten verantwortlich. Kommandos bzw. Ereignisse werden an den
 	 * Controller übergeben.
+	 * <p>
+	 * Die ableitende Klasse muss die Methode {@link java.util.Observer#update(java.util.Observable, Object)
+	 * update(Observable, Object)} entsprechend überschreiben um über Änderungen im Model benachrichtigt zu
+	 * werden. Die veränderten Eigenschaften müssen in der Methode selbst über
+	 * {@link simulator.ViewUIComponentBase#getModel() getModel()} und den Getter-Methoden abgefragt werden.
 	 * 
 	 * @param model Das Model, auf dem sich zur Beobachtung registriert werden soll.
 	 * @param controller Der Controller zur Steuerung der Benutzeraktionen.
 	 */
-	public ViewBase(KompassModel model, KompassControllerInterface controller) {
+	public ViewBase(KompassModel model, ControllerInterface controller) {
 		this.model = model;
 		this.controller = controller;
 		
@@ -43,7 +48,7 @@ implements ViewInterface {
 		return model;
 	}
 	
-	public KompassControllerInterface getController() {
+	public ControllerInterface getController() {
 		return controller;
 	}
 	

@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 import engine.CoreBase;
 import engine.CoreEvent;
-import simulator.controller.KompassController;
+import simulator.controller.ControllerUIBase;
 import simulator.model.KompassModel;
 import simulator.view.CommandlineView;
 import simulator.view.SteuerkursKompassView;
@@ -26,10 +26,7 @@ public class Core
 extends CoreBase {
 
 	KompassModel model;
-	KompassController controller;
-	ViewInterface view1;
-	ViewUIComponentBase view2;
-	ViewUIComponentBase view3;
+	ControllerUIBase controller;
 	
 	@Override
 	protected CoreEvent pollEvent() {
@@ -39,29 +36,34 @@ extends CoreBase {
 
 	@Override
 	protected boolean onInit() {
-		// Verknüpfen der MVC-Komponenten
-		model = new KompassModel();
-		controller = new KompassController(model);
-		view1 = new CommandlineView(model, controller);
-		view2 = new SteuerkursView(model, controller);
-		view3 = new SteuerkursKompassView(model, controller);
+		try {
+			// Das Hauptfenster erzeugen
+			JFrame frame = new JFrame("Kompass GUI");
+			frame.addWindowListener(new CloseListener());
+			frame.setSize(200, 200);
+			frame.setLocation(100, 100);
+			frame.setVisible(true);
+			
+			// Verknüpfen der MVC-Komponenten
+			model = new KompassModel();
+			controller = new ControllerUIBase(model, frame);
+			new CommandlineView(model, controller);
+			new SteuerkursView(model, controller);
+			new SteuerkursKompassView(model, controller);
+			
+			// Initialisierungen vornehmen
+			controller.initializeModel();
+			controller.showView(1);
+			model.setKompasskurs(175);
+			
+			return true;
+		}
 		
-		controller.initialisiereModel();
-		model.setKompasskurs(175);
+		// Ausnahmebehandlung
+		catch (Exception e) {  }
+		finally { onCleanup(); }
 		
-		// Das Fenster erzeugen
-		// TODO Das ist noch unschön gelöst
-		JFrame frame = new JFrame("Kompass GUI");
-		controller.setFrame(frame);
-		
-		frame.add(view2);
-		
-		frame.addWindowListener(new CloseListener());
-		frame.setSize(200, 200);
-		frame.setLocation(100, 100);
-		frame.setVisible(true);
-		
-		return true;
+		return false;
 	}
 
 	@Override
@@ -87,7 +89,7 @@ extends CoreBase {
 	/**
 	 * Eine Nested-Class zum schliessen einer Anwendung.
 	 * <p>
-	 * Diese Funktion wird über {@code frame.addWindowListener(new CloseListener())} dem
+	 * Diese Klasse wird über {@code frame.addWindowListener(new CloseListener())} dem
 	 * {@link javax.swing.JFrame JFrame} als {@link java.awt.event.WindowListener} hinzugefügt.
 	 * Die Methode {@link java.awt.event.WindowAdapter#windowClosing(WindowEvent) windowClosing(WindowEvent)}
 	 * wird beim schliessen des {@link javax.swing.JFrame JFrame} automatish ausgeführt.

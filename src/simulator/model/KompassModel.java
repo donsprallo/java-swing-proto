@@ -20,6 +20,16 @@ public class KompassModel extends Observable {
 			setChanged();
 			notifyObservers();
 		}
+		else if(steuerkurs < 0 ){
+			this.steuerkurs = 360 +steuerkurs;
+			setChanged();
+                        notifyObservers();
+		}
+		else{
+			this.steuerkurs = steuerkurs-360;
+			setChanged();
+                        notifyObservers();
+		}
 	}
 	
 	public int getKompasskurs() {

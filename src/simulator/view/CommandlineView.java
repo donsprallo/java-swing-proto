@@ -4,7 +4,7 @@ import java.util.Observable;
 
 import simulator.ViewBase;
 import simulator.controller.ControllerInterface;
-import simulator.model.KompassModel;
+import simulator.model.SimulatorModel;
 
 /**
  * Eine Beispiel-Klasse für eine View ohne GUI.
@@ -22,10 +22,10 @@ public class CommandlineView extends ViewBase {
 	/**
 	 * Der Konstruktor leitet die übergebenen Argumente an die Basis-Klasse weiter.
 	 * 
-	 * @param model Das {@link simulator.model.KompassModel}-Objekt, auf dem sich die View registriert.
+	 * @param model Das {@link simulator.model.SimulatorModel}-Objekt, auf dem sich die View registriert.
 	 * @param controller Das zu verbindende {@link simulator.controller.ControllerInterface}-Objekt.
 	 */
-	public CommandlineView(KompassModel model, ControllerInterface controller) {
+	public CommandlineView(SimulatorModel model, ControllerInterface controller) {
 		super(model, controller);
 	}
 	

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import simulator.ViewInterface;
-import simulator.model.KompassModel;
+import simulator.model.SimulatorModel;
 
 /**
  * Eine einfache Controller-Klasse.
@@ -25,17 +25,17 @@ import simulator.model.KompassModel;
 public abstract class ControllerBase
 implements ControllerInterface {
 
-	protected KompassModel model;
+	protected SimulatorModel model;
 	protected ArrayList<ViewInterface> views;
 	
 	/**
 	 * Konstruktor für ein {@link simulator.comtroller.ControllerBase}-Objekt.
 	 * <p>
 	 * Erstellt ein {@link simulator.controller.ControllerBase}-Objekt. Der Controller muss direkt
-	 * mit einem {@link simulator.model.KompassModel} verbunden werden.
-	 * @param model Ein {@link simulator.model.KompassModel}-Objekt.
+	 * mit einem {@link simulator.model.SimulatorModel} verbunden werden.
+	 * @param model Ein {@link simulator.model.SimulatorModel}-Objekt.
 	 */
-	public ControllerBase(KompassModel model) {
+	public ControllerBase(SimulatorModel model) {
 		// Fehlerüberprüfung der Argumente
 		Objects.requireNonNull(model, "model darf nicht null sein.");
 		

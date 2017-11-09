@@ -1,7 +1,7 @@
 package simulator;
 
 import simulator.controller.ControllerInterface;
-import simulator.model.KompassModel;
+import simulator.model.SimulatorModel;
 
 /**
  * Stellt eine Minimalversion einer View dar.
@@ -16,7 +16,7 @@ import simulator.model.KompassModel;
 public abstract class ViewBase
 implements ViewInterface {
 	
-	private KompassModel model;
+	private SimulatorModel model;
 	private ControllerInterface controller;
 	
 	/**
@@ -36,7 +36,7 @@ implements ViewInterface {
 	 * @param model Das Model, auf dem sich zur Beobachtung registriert werden soll.
 	 * @param controller Der Controller zur Steuerung der Benutzeraktionen.
 	 */
-	public ViewBase(KompassModel model, ControllerInterface controller) {
+	public ViewBase(SimulatorModel model, ControllerInterface controller) {
 		this.model = model;
 		this.controller = controller;
 		
@@ -44,7 +44,7 @@ implements ViewInterface {
 		controller.addView(this);
 	}
 	
-	public KompassModel getModel() {
+	public SimulatorModel getModel() {
 		return model;
 	}
 	

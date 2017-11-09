@@ -1,13 +1,14 @@
 package simulator.view;
 
-import java.awt.Button;
 import java.awt.GridLayout;
-import java.awt.Label;
 import java.util.Observable;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import simulator.ViewUIComponentBase;
 import simulator.controller.ControllerInterface;
-import simulator.model.KompassModel;
+import simulator.model.SimulatorModel;
 
 /**
  * Eine Beispiel-Klasse für eine View mit GUI.
@@ -22,7 +23,7 @@ import simulator.model.KompassModel;
 @SuppressWarnings("serial")
 public class SteuerkursView extends ViewUIComponentBase {
 	
-	Label label;
+	JLabel label;
 	
 	/**
 	 * Der Konstruktor leitet die übergebenen Argumente an die Basis-Klasse weiter.
@@ -32,38 +33,50 @@ public class SteuerkursView extends ViewUIComponentBase {
 	 * verbunden. Damit der Controller weiss, welches Kommando er ausführen muss, wird der Komponenten
 	 * mittels {@code Component.setActionCommand(String)} ein Kommandoname vergeben.
 	 * 
-	 * @param model Das {@link simulator.model.KompassModel}-Objekt, auf dem sich die View registriert.
+	 * @param model Das {@link simulator.model.SimulatorModel}-Objekt, auf dem sich die View registriert.
 	 * @param controller Das zu verbindende {@link simulator.controller.ControllerInterface}-Objekt.
 	 */
-	public SteuerkursView(KompassModel model, ControllerInterface controller) {
+	public SteuerkursView(SimulatorModel model, ControllerInterface controller) {
 		super(model, controller);
 		
 		// einen Layout-Manager hinzufügen
-		setLayout(new GridLayout(4, 1));
+		setLayout(new GridLayout(6, 1));
 		
 		// erstellt einen Button und koppelt den Controller
 		// der Controller verarbeitet das Kommando namens "-5"
 		// da die View selbst ein JFrame ist, kann der Button direkt mit add(Component) hinzugefügt werden
-		Button btnMinusFuenfGrad = new Button("-5 Grad");
+		JButton btnMinusFuenfGrad = new JButton("-5 Grad");
 		btnMinusFuenfGrad.addActionListener(controller);
 		btnMinusFuenfGrad.setActionCommand("-5");
 		add("North", btnMinusFuenfGrad);
 		
 		// die folgenden Elemente werden äquivalent hinzugefügt
-		label = new Label();
-		label.setAlignment(Label.CENTER);
+		label = new JLabel();
+		label.setHorizontalAlignment(JLabel.CENTER);
 		add(label);
 		
-		Button btnPlusFuenfGrad = new Button("+5 Grad");
+		JButton btnPlusFuenfGrad = new JButton("+5 Grad");
 		btnPlusFuenfGrad.addActionListener(controller);
 		btnPlusFuenfGrad.setActionCommand("+5");
 		add(btnPlusFuenfGrad);
 		
 		// das umschalten der View übernimmt ebenfalls der Controller
-		Button btnNextView = new Button("Next View");
+		JButton btnNextView = new JButton("Next View");
 		btnNextView.addActionListener(controller);
-		btnNextView.setActionCommand("Next View");
+		btnNextView.setActionCommand("View 2");
 		add(btnNextView);
+		
+		// Speicher-Button
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(controller);
+		btnSave.setActionCommand("Save");
+		add(btnSave);
+		
+		// Lade-Button
+		JButton btnLoad = new JButton("Load");
+		btnLoad.addActionListener(controller);
+		btnLoad.setActionCommand("Load");
+		add(btnLoad);
 	}
 	
 	@Override

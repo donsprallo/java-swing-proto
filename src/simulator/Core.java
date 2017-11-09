@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 
 import engine.CoreBase;
 import engine.CoreEvent;
-import simulator.controller.ControllerUIBase;
-import simulator.model.KompassModel;
+import simulator.controller.SimulatorController;
+import simulator.model.SimulatorModel;
 import simulator.view.CommandlineView;
 import simulator.view.SteuerkursKompassView;
 import simulator.view.SteuerkursView;
@@ -25,8 +25,8 @@ import simulator.view.SteuerkursView;
 public class Core
 extends CoreBase {
 
-	KompassModel model;
-	ControllerUIBase controller;
+	SimulatorModel model;
+	SimulatorController controller;
 	
 	@Override
 	protected CoreEvent pollEvent() {
@@ -45,8 +45,8 @@ extends CoreBase {
 			frame.setVisible(true);
 			
 			// Verknüpfen der MVC-Komponenten
-			model = new KompassModel();
-			controller = new ControllerUIBase(model, frame);
+			model = new SimulatorModel();
+			controller = new SimulatorController(model, frame);
 			new CommandlineView(model, controller);
 			new SteuerkursView(model, controller);
 			new SteuerkursKompassView(model, controller);
@@ -94,7 +94,7 @@ extends CoreBase {
 	 * Die Methode {@link java.awt.event.WindowAdapter#windowClosing(WindowEvent) windowClosing(WindowEvent)}
 	 * wird beim schliessen des {@link javax.swing.JFrame JFrame} automatish ausgeführt.
 	 * 
-	 * @author nico
+	 * @author Nico Hanisch
 	 * @version 1.0
 	 */
 	public static class CloseListener extends WindowAdapter {

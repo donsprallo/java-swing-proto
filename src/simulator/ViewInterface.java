@@ -3,7 +3,7 @@ package simulator;
 import java.util.Observer;
 
 import simulator.controller.ControllerInterface;
-import simulator.model.KompassModel;
+import simulator.model.SimulatorModel;
 
 /**
  * Dieses Interface stellt die minimalen Methoden für eine View dar.
@@ -18,9 +18,9 @@ public interface ViewInterface extends Observer {
 	/**
 	 * Gibt das Model, welches die View beobachtet, zurück.
 	 * 
-	 * @return Ein {@link simulator.model.KompassModel KompassModel}-Objekt.
+	 * @return Ein {@link simulator.model.SimulatorModel KompassModel}-Objekt.
 	 */
-	KompassModel getModel();
+	SimulatorModel getModel();
 	
 	/**
 	 * Gibt den Controller der View zurück.

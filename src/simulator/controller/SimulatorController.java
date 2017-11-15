@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.swing.AbstractAction;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
-import simulator.ViewBase;
-import simulator.ViewInterface;
 import simulator.model.SimulatorModel;
+import simulator.view.ViewCmdLineBase;
+import simulator.view.ViewInterface;
 
 /**
  * 
@@ -29,33 +31,6 @@ public class SimulatorController extends ControllerUIBase {
 		
 		if (e.getActionCommand().isEmpty())
 			return;
-		
-		// Command auswerten und View setzen
-		if (e.getActionCommand().startsWith("View")) {
-			String[] cmd = e.getActionCommand().split(" ");
-			int view = Integer.parseInt(cmd[1]);
-			showView(view);
-		}
-		
-		// Steuerkurs -5
-		if (e.getActionCommand().equals("-5")) {
-			model.setSteuerkurs(model.getSteuerkurs() - 5);
-			informiereUeberKurskorrektur(-5);
-		}
-		
-		// Steuerkurs +5
-		if (e.getActionCommand().equals("+5")) {
-			model.setSteuerkurs(model.getSteuerkurs() + 5);
-			informiereUeberKurskorrektur(5);
-		}
-		
-		// Speichern
-		if (e.getActionCommand().equals("Save"))
-			save("test.txt");
-		
-		// Laden
-		if (e.getActionCommand().equals("Load"))
-			load("test.txt");
 	}
 	
 	/**
@@ -64,8 +39,8 @@ public class SimulatorController extends ControllerUIBase {
 	 */
 	private void informiereUeberKurskorrektur(int kurskorrektur) {
 		for (ViewInterface view : views)
-			if (view instanceof ViewBase)
-				((ViewBase)view).showKurskorrektur(kurskorrektur);
+			if (view instanceof ViewCmdLineBase)
+				((ViewCmdLineBase)view).showKurskorrektur(kurskorrektur);
 	}
 	
 	/**
@@ -117,5 +92,89 @@ public class SimulatorController extends ControllerUIBase {
 	public void initializeModel() {
 		model.setKompasskurs(0);
 		model.setSteuerkurs(0);
+	}
+	
+	/**
+	 * 
+	 * @author Nico Hanisch
+	 */
+	@SuppressWarnings("serial")
+	public class CommentAction extends AbstractAction {
+		
+		private JTextField textfield;
+		
+		/**
+		 * 
+		 * @param textfield
+		 */
+		public CommentAction(JTextField textfield) {
+			super();
+			this.textfield = textfield;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			model.setKommentar(textfield.getText());
+		}
+	}
+	
+	
+	@SuppressWarnings("serial")
+	public class ChangeViewAction extends AbstractAction {
+		
+		private int index;
+		
+		public ChangeViewAction(String text, int index) {
+			super(text);
+			this.index = index;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			showView(index);
+		}
+	}
+	
+	@SuppressWarnings("serial")
+	public class SaveAction extends AbstractAction {
+		
+		public SaveAction(String text) {
+			super(text);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			save("test.txt");
+		}
+	}
+	
+	@SuppressWarnings("serial")
+	public class LoadAction extends AbstractAction {
+		
+		public LoadAction(String text) {
+			super(text);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			load("test.txt");
+		}
+	}
+	
+	@SuppressWarnings("serial")
+	public class ChangeSteuerkursAction extends AbstractAction {
+		
+		int change;
+		
+		public ChangeSteuerkursAction(String text, int change) {
+			super(text);
+			this.change = change;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			model.setSteuerkurs(model.getSteuerkurs() + change);
+			informiereUeberKurskorrektur(change);
+		}
 	}
 }

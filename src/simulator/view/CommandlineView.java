@@ -2,14 +2,13 @@ package simulator.view;
 
 import java.util.Observable;
 
-import simulator.ViewBase;
 import simulator.controller.ControllerInterface;
 import simulator.model.SimulatorModel;
 
 /**
  * Eine Beispiel-Klasse für eine View ohne GUI.
  * <p>
- * Erbt von {@link simulator.view.ViewBase} und überschreibt die Methoden
+ * Erbt von {@link simulator.simulator.view.ViewCmdLineBase} und überschreibt die Methoden
  * {@code update(Observable, Object)} und {@code showKurskorrektur(int)}. Am wichtigsten ist die
  * update-Methode, in der die View über Datenänderungen am Model informiert wird. Die Daten selbst
  * werden über Getter-Methoden vom Model abgefragt.
@@ -17,7 +16,7 @@ import simulator.model.SimulatorModel;
  * @author Nico Hanisch
  * @version 1.0
  */
-public class CommandlineView extends ViewBase {
+public class CommandlineView extends ViewCmdLineBase {
 	
 	/**
 	 * Der Konstruktor leitet die übergebenen Argumente an die Basis-Klasse weiter.

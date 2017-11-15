@@ -11,7 +11,7 @@ package engine;
  */
 public abstract class CoreBase {
 	// Flag zum beenden das Game Loop
-	private boolean _running;
+	private boolean running;
 	
 	/**
 	 * Der Konstruktor für ein {@link engine.CoreBase}-Objekt (Engine).
@@ -19,7 +19,7 @@ public abstract class CoreBase {
 	 * Zum starten der Engine muss die Funktion {@link engine.CoreBase#excecute() excecute()} bemüht werden.
 	 */
 	public CoreBase() {
-		_running = false;
+		running = false;
 	}
 	
 	/**
@@ -34,16 +34,16 @@ public abstract class CoreBase {
 	public int excecute() {
 		CoreEvent e;
 		
-		_running = true;
+		running = true;
 		
 		// Grafik-Bib initialisieren
 		if (!onInit()) {
-			_running = false;
+			running = false;
 			return -1;
 		}
 		
 		// Game-Loop
-		while(_running) {
+		while(running) {
 			
 			while ((e = pollEvent()) != null) {
 				onEvent(e);
@@ -65,7 +65,7 @@ public abstract class CoreBase {
 	 * Mit dieser Funktion kann von ausserhalb die Spiel-Schleife unterbrochen werden.
 	 */
 	public void quit() {
-		_running = false;
+		running = false;
 	}
 	
 	/**

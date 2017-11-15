@@ -2,7 +2,7 @@ package simulator.controller;
 
 import java.awt.event.ActionListener;
 
-import simulator.ViewInterface;
+import simulator.view.ViewInterface;
 
 /**
  * Diese Schnittstelle ist der Grundstein für einen Controller.

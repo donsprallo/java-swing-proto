@@ -1,4 +1,4 @@
-package simulator;
+package simulator.view;
 
 import java.util.Observer;
 

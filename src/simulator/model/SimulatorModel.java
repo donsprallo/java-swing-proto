@@ -11,17 +11,20 @@ package simulator.model;
  * @author Nico Hanisch
  * @version 1.0
  */
-@SuppressWarnings("serial")
 public class SimulatorModel
 extends ModelBase {
 	
+	private static final long serialVersionUID = -4200201985740362001L;
+	
 	private int steuerkurs;
 	private int kompasskurs;
+	private String kommentar;
 	
 	public SimulatorModel() {
 		// Optional: Initialisierung hier, kann aber auch vom Controller übernommen werden
 	}
 	
+	// Steuerkurs
 	public int getSteuerkurs() {
 		return steuerkurs;
 	}
@@ -34,6 +37,7 @@ extends ModelBase {
 		}
 	}
 	
+	// Kompasskurs
 	public int getKompasskurs() {
 		return kompasskurs;
 	}
@@ -44,6 +48,17 @@ extends ModelBase {
 			setChanged();
 			notifyObservers();
 		}
+	}
+	
+	// Kommentar
+	public String getKommentar() {
+		return kommentar;
+	}
+	
+	public void setKommentar(String text) {
+		this.kommentar = text;
+		setChanged();
+		notifyObservers();
 	}
 	
 	/**
@@ -67,5 +82,11 @@ extends ModelBase {
 	public void copy(SimulatorModel copy) {
 		setKompasskurs(copy.getKompasskurs());
 		setSteuerkurs(copy.getSteuerkurs());
+		setKommentar(copy.getKommentar());
+	}
+
+	@Override
+	public <T extends ModelBase> void copy(T copy) {
+		copy((SimulatorModel)copy);
 	}
 }

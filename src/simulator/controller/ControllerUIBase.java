@@ -5,9 +5,10 @@ import java.awt.event.ActionEvent;
 import java.util.Objects;
 
 import javax.swing.JFrame;
-import simulator.ViewInterface;
-import simulator.ViewUIComponentBase;
+
 import simulator.model.SimulatorModel;
+import simulator.view.ViewInterface;
+import simulator.view.ViewUIComponentBase;
 
 /**
  * Diese Klasse erbt von {@link simulator.controller.ControllerBase}.

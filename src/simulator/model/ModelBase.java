@@ -20,11 +20,12 @@ import java.util.Observable;
  * @author Nico Hanisch
  * @version 1.0
  */
-@SuppressWarnings("serial")
 public abstract class ModelBase
 extends Observable
 implements Serializable {
 	
+	private static final long serialVersionUID = 522467551181914410L;
+
 	/**
 	 * Serialisiert ein übergebenes {@link simulator.model.SimulatorModel}-Objekt in einen Ausgabestream.
 	 * @param model
@@ -55,4 +56,14 @@ implements Serializable {
 		
 		return res;
 	}
+	
+	/**
+	 * Kopiert alle Attribute eines übergebenen Models in das Objekt.
+	 * <p>
+	 * Diese Hilfsmethode dient dazu, die Werte des Models aus einem anderen Model zu übernehmen. Beim
+	 * Laden eines SimulatorModel-Objekts gehen sonst die Referenzen der Beobachter verloren.
+	 * 
+	 * @param copy Das {@link simulator.model.ModelBase}-Objekt, dessen Attribute kopiert werden sollen.
+	 */
+	public abstract <T extends ModelBase> void copy (T copy);
 }

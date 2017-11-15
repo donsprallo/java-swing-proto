@@ -3,11 +3,12 @@ package simulator.view;
 import java.awt.GridLayout;
 import java.util.Observable;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
-import simulator.ViewUIComponentBase;
-import simulator.controller.ControllerInterface;
+import simulator.controller.SimulatorController;
 import simulator.model.SimulatorModel;
 
 /**
@@ -25,6 +26,15 @@ public class SteuerkursKompassView extends ViewUIComponentBase {
 
 	JLabel lblSteuerkurs;
 	JLabel lblKompasskurs;
+	JTextField txtKommentar;
+	JButton btnBackView;
+	JButton btnMinusFuenfGrad;
+	JButton btnPlusFuenfGrad;
+	
+	AbstractAction actComment;
+	AbstractAction actSteuerkursPlus;
+	AbstractAction actSteuerkursMinus;
+	AbstractAction actBackView;
 	
 	/**
 	 * Der Konstruktor leitet die übergebenen Argumente an die Basis-Klasse weiter.
@@ -37,18 +47,17 @@ public class SteuerkursKompassView extends ViewUIComponentBase {
 	 * @param model Das {@link simulator.model.SimulatorModel}-Objekt, auf dem sich die View registriert.
 	 * @param controller Das zu verbindende {@link simulator.controller.ControllerInterface}-Objekt.
 	 */
-	public SteuerkursKompassView(SimulatorModel model, ControllerInterface controller) {
+	public SteuerkursKompassView(SimulatorModel model, SimulatorController controller) {
 		super(model, controller);
 		
 		// einen Layout-Manager hinzufügen
-		setLayout(new GridLayout(5, 1));
+		setLayout(new GridLayout(6, 1));
 		
 		// erstellt einen Button und koppelt den Controller
 		// der Controller verarbeitet das Kommando namens "-5"
 		// da die View selbst ein JFrame ist, kann der Button direkt mit add(Component) hinzugefügt werden
-		JButton btnMinusFuenfGrad = new JButton("-5 Grad");
-		btnMinusFuenfGrad.addActionListener(controller);
-		btnMinusFuenfGrad.setActionCommand("-5");
+		actSteuerkursMinus = controller.new ChangeSteuerkursAction("-5 Grad", -5);
+		btnMinusFuenfGrad = new JButton(actSteuerkursMinus);
 		add("North", btnMinusFuenfGrad);
 		
 		// die folgenden Elemente werden äquivalent hinzugefügt
@@ -60,15 +69,19 @@ public class SteuerkursKompassView extends ViewUIComponentBase {
 		lblKompasskurs.setHorizontalAlignment(JLabel.CENTER);
 		add(lblKompasskurs);
 		
-		JButton btnPlusFuenfGrad = new JButton("+5 Grad");
-		btnPlusFuenfGrad.addActionListener(controller);
-		btnPlusFuenfGrad.setActionCommand("+5");
+		actSteuerkursPlus = controller.new ChangeSteuerkursAction("+5 Grad", 5);
+		btnPlusFuenfGrad = new JButton(actSteuerkursPlus);
 		add(btnPlusFuenfGrad);
 		
+		// ein Textfeld
+		txtKommentar = new JTextField();
+		actComment = controller.new CommentAction(txtKommentar);
+		txtKommentar.setAction(actComment);
+		add(txtKommentar);
+		
 		// das umschalten der View übernimmt ebenfalls der Controller
-		JButton btnBackView = new JButton("Back View");
-		btnBackView.addActionListener(controller);
-		btnBackView.setActionCommand("View 1");
+		actBackView = controller.new ChangeViewAction("Back View", 1);
+		btnBackView = new JButton(actBackView);
 		add(btnBackView);
 	}
 	
@@ -77,6 +90,7 @@ public class SteuerkursKompassView extends ViewUIComponentBase {
 		// diese View zeigt den Steuerkurs und den Kompasskurs an
 		lblSteuerkurs.setText("Steuerkurs: " + getModel().getSteuerkurs());
 		lblKompasskurs.setText("Kompasskurs: " + getModel().getKompasskurs());
+		txtKommentar.setText(getModel().getKommentar());
 	}
 
 }

@@ -3,8 +3,8 @@ package simulator.controller;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import simulator.ViewInterface;
 import simulator.model.SimulatorModel;
+import simulator.view.ViewInterface;
 
 /**
  * Eine einfache Controller-Klasse.

@@ -3,17 +3,17 @@ package simulator.view;
 import java.awt.GridLayout;
 import java.util.Observable;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import simulator.ViewUIComponentBase;
-import simulator.controller.ControllerInterface;
+import simulator.controller.SimulatorController;
 import simulator.model.SimulatorModel;
 
 /**
  * Eine Beispiel-Klasse für eine View mit GUI.
  * <p>
- * Erbt von {@link simulator.view.ViewUIComponentBase} und überschreibt die Methoden
+ * Erbt von {@link simulator.simulator.view.ViewUIComponentBase} und überschreibt die Methoden
  * {@code update(Observable, Object)}. In der update-Methode wird die View über Datenänderungen
  * am Model informiert. Die Daten selbst werden über Getter-Methoden vom Model abgefragt.
  * 
@@ -23,7 +23,17 @@ import simulator.model.SimulatorModel;
 @SuppressWarnings("serial")
 public class SteuerkursView extends ViewUIComponentBase {
 	
-	JLabel label;
+	JButton btnMinusFuenfGrad;
+	JButton btnPlusFuenfGrad;
+	JButton btnNextView;
+	JButton btnSave;
+	JButton btnLoad;
+	JLabel lblSteuerkurs;
+	JLabel lblKommentar;
+	
+	AbstractAction actSteuerkursPlus;
+	AbstractAction actSteuerkursMinus;
+	AbstractAction actNextView;
 	
 	/**
 	 * Der Konstruktor leitet die übergebenen Argumente an die Basis-Klasse weiter.
@@ -36,52 +46,53 @@ public class SteuerkursView extends ViewUIComponentBase {
 	 * @param model Das {@link simulator.model.SimulatorModel}-Objekt, auf dem sich die View registriert.
 	 * @param controller Das zu verbindende {@link simulator.controller.ControllerInterface}-Objekt.
 	 */
-	public SteuerkursView(SimulatorModel model, ControllerInterface controller) {
+	public SteuerkursView(SimulatorModel model, SimulatorController controller) {
 		super(model, controller);
 		
 		// einen Layout-Manager hinzufügen
-		setLayout(new GridLayout(6, 1));
+		setLayout(new GridLayout(8, 1));
 		
 		// erstellt einen Button und koppelt den Controller
 		// der Controller verarbeitet das Kommando namens "-5"
 		// da die View selbst ein JFrame ist, kann der Button direkt mit add(Component) hinzugefügt werden
-		JButton btnMinusFuenfGrad = new JButton("-5 Grad");
-		btnMinusFuenfGrad.addActionListener(controller);
-		btnMinusFuenfGrad.setActionCommand("-5");
+		actSteuerkursMinus = controller.new ChangeSteuerkursAction("-5 Grad", -5);
+		btnMinusFuenfGrad = new JButton(actSteuerkursMinus);
 		add("North", btnMinusFuenfGrad);
 		
 		// die folgenden Elemente werden äquivalent hinzugefügt
-		label = new JLabel();
-		label.setHorizontalAlignment(JLabel.CENTER);
-		add(label);
+		lblSteuerkurs = new JLabel();
+		lblSteuerkurs.setHorizontalAlignment(JLabel.CENTER);
+		add(lblSteuerkurs);
 		
-		JButton btnPlusFuenfGrad = new JButton("+5 Grad");
-		btnPlusFuenfGrad.addActionListener(controller);
-		btnPlusFuenfGrad.setActionCommand("+5");
+		actSteuerkursPlus = controller.new ChangeSteuerkursAction("+5 Grad", 5);
+		btnPlusFuenfGrad = new JButton(actSteuerkursPlus);
 		add(btnPlusFuenfGrad);
 		
 		// das umschalten der View übernimmt ebenfalls der Controller
-		JButton btnNextView = new JButton("Next View");
-		btnNextView.addActionListener(controller);
-		btnNextView.setActionCommand("View 2");
+		actNextView = controller.new ChangeViewAction("Next View", 2);
+		btnNextView = new JButton(actNextView);
 		add(btnNextView);
 		
+		add(new JLabel("Kommentar:"));
+		
+		lblKommentar = new JLabel();
+		add(lblKommentar);
+		
 		// Speicher-Button
-		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(controller);
-		btnSave.setActionCommand("Save");
+		btnSave = new JButton();
+		btnSave.setAction(controller.new SaveAction("Save"));
 		add(btnSave);
 		
 		// Lade-Button
-		JButton btnLoad = new JButton("Load");
-		btnLoad.addActionListener(controller);
-		btnLoad.setActionCommand("Load");
+		btnLoad = new JButton();
+		btnLoad.setAction(controller.new LoadAction("Load"));
 		add(btnLoad);
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		// auf dieser View wird nur der Steuerkurs ausgegeben
-		label.setText("Steuerkurs: " + getModel().getSteuerkurs());
+		lblSteuerkurs.setText("Steuerkurs: " + getModel().getSteuerkurs());
+		lblKommentar.setText(getModel().getKommentar());
 	}
 }

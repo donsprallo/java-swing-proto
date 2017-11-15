@@ -1,7 +1,7 @@
 /**
  * 
  */
-package simulator;
+package simulator.view;
 
 import javax.swing.JComponent;
 import simulator.controller.ControllerInterface;
@@ -10,12 +10,12 @@ import simulator.model.SimulatorModel;
 /**
  * Stellt eine Minimalversion einer grafischen View dar.
  * <p>
- * Die {@link simulator.ViewUIComponentBase ViewUIComponentBase} kann als Basis für eine
+ * Die {@link simulator.view.ViewUIComponentBase ViewUIComponentBase} kann als Basis für eine
  * Swing-basierte GUI-Komponente verwendet werden.
- * Das {@link simulator.ViewInterface ViewInterface} wird implementiert und stellt damit Methoden
+ * Das {@link simulator.view.ViewInterface ViewInterface} wird implementiert und stellt damit Methoden
  * für den Zugriff auf das Model und den Controller zur Verfügung. Es wird von der
  * {@link javax.swing.JComponent JComponent}-Klasse geerbt. Damit kann die
- * {@link simulator.ViewUIComponentBase ViewUIComponentBase}-Klasse einem
+ * {@link simulator.view.ViewUIComponentBase ViewUIComponentBase}-Klasse einem
  * {@link javax.swing.JFrame JFrame} zur Anzeige hinzugefügt werden.
  * 
  * @author Nico Hanisch
@@ -41,7 +41,7 @@ implements ViewInterface {
 	 * Die ableitende Klasse muss die Methode {@link java.util.Observer#update(java.util.Observable, Object)
 	 * update(Observable, Object)} entsprechend überschreiben um über Änderungen im Model benachrichtigt zu
 	 * werden. Die veränderten Eigenschaften müssen in der Methode selbst über
-	 * {@link simulator.ViewUIComponentBase#getModel() getModel()} und den Getter-Methoden abgefragt werden.
+	 * {@link simulator.view.ViewUIComponentBase#getModel() getModel()} und den Getter-Methoden abgefragt werden.
 	 * 
 	 * @param model Das Model, auf dem sich zur Beobachtung registriert werden soll.
 	 * @param controller Der Controller zur Steuerung der Benutzeraktionen.
